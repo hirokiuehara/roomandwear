@@ -259,7 +259,7 @@ for a in ARTICLES:
   <p class="crumb"><a href="index.html">ホーム</a> › <a href="{a['cat']}.html">{CATS[a['cat']]}</a></p>
   <p class="meta"><span class="chip chip-{a['cat']}">{CAT_SHORT[a['cat']]}</span>{fmt_date(a['date'])}</p>
   <h1>{html.escape(a['title'])}</h1>
-  <img class="eyecatch" src="{thumb_src(a['slug'])}" alt="" width="1200" height="630">
+  <figure class="eyecatch-fig"><img class="eyecatch" src="{thumb_src(a['slug'])}" alt="" width="1200" height="630">{'<figcaption>※画像は記事のイメージです。紹介している商品の写真ではありません。</figcaption>' if thumb_src(a['slug']).startswith('photo-') else ''}</figure>
   <p class="pr-note">※この記事にはアフィリエイトリンクが含まれています（<a href="disclosure.html">広告について</a>）。</p>
   {toc_top}
   <div class="content">{b}</div>
