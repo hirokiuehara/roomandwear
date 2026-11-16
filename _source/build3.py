@@ -142,7 +142,7 @@ if os.path.exists(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT)
 A = os.path.join(os.path.dirname(__file__), "assets")
 for f in ["style3.css", "hero.jpg", "hero-sm.jpg", "cat-apparel.jpg", "cat-interior.jpg"]:
-    shutil.copy(os.path.join(A, f), os.path.join(OUT, "style.css" if f == "style3.css" else f))
+    shutil.copy(os.path.join(A, f) if os.path.exists(os.path.join(A, f)) else os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f), os.path.join(OUT, "style.css" if f == "style3.css" else f))
 
 if os.path.isdir(PHOTO_DIR):
     for f in os.listdir(PHOTO_DIR):
