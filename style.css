@@ -96,7 +96,9 @@ main.wrap{padding-top:28px;padding-bottom:64px}
 .crumb{font-size:12px;color:var(--sub);margin:0 0 8px}
 .crumb a{color:var(--sub)}
 .meta{font-size:12px;color:var(--sub);margin:0}
-.eyecatch{width:100%;height:auto;border-radius:4px;margin:4px 0 14px;display:block}
+.eyecatch-fig{margin:4px 0 14px}
+.eyecatch-fig figcaption{font-size:11px;color:var(--sub);margin-top:4px}
+.eyecatch{width:100%;height:auto;border-radius:4px;display:block}
 .pr-note{font-size:12px;color:var(--sub);background:var(--bg);padding:6px 10px;border-radius:3px}
 .toc{border:1px solid var(--line);background:var(--bg);border-radius:4px;padding:16px 20px;margin:20px 0}
 .toc-title{font-weight:700;margin:0 0 6px}
