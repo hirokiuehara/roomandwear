@@ -61,7 +61,7 @@ def render_picks(slug):
         dl = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in specs.items())
         cards += f"""<div class="product"><p class="product-label">{label}</p><h3>{html.escape(name)}</h3><dl>{dl}<dt>特徴</dt><dd>{feat}</dd><dt>向いている人</dt><dd>{fit}</dd><dt>注意点</dt><dd>{caution}</dd><dt>価格</dt><dd>価格・在庫は変動するため掲載していません（販売ページの確認日：{CHECKED}）。</dd></dl><a class="btn-amazon" href="https://www.amazon.co.jp/dp/{asin}?tag={ASSOC_TAG}" target="_blank" rel="nofollow sponsored noopener">Amazonで価格・詳細を見る</a></div>"""
     return f"""<h2>条件別に選んだ3点</h2>
-<p>{p['intro']}仕様は{CHECKED}にAmazonの販売ページで確認した内容です。編集部が実際に使用したレビューではありません。購入前に最新の情報をご確認ください。</p>
+<p>{p['intro']}{p.get('source', '仕様は'+CHECKED+'にAmazonの販売ページで確認した内容です。')}編集部が実際に使用したレビューではありません。購入前に最新の情報をご確認ください。</p>
 <table><tr><th>商品</th>{head}</tr>{rows}</table>
 {cards}
 """
@@ -141,7 +141,7 @@ def add_toc(body):
 if os.path.exists(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT)
 A = os.path.join(os.path.dirname(__file__), "assets")
-for f in ["style3.css", "hero.jpg", "hero-sm.jpg", "cat-apparel.jpg", "cat-interior.jpg"]:
+for f in ["style3.css", "hero.jpg", "hero-sm.jpg", "cat-apparel.jpg", "cat-interior.jpg", "cat-apparel-sm.jpg", "cat-interior-sm.jpg"]:
     shutil.copy(os.path.join(A, f) if os.path.exists(os.path.join(A, f)) else os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f), os.path.join(OUT, "style.css" if f == "style3.css" else f))
 
 if os.path.isdir(PHOTO_DIR):
@@ -165,8 +165,8 @@ home = f"""
 </section>
 
 <section class="cat-banners">
-  <a class="cat-banner" href="apparel.html"><img src="cat-apparel.jpg" alt="ハンガーラックに掛かったシャツ・ジャケット・パンツ" loading="lazy" width="800" height="650"><div class="cat-text"><span class="cat-en">APPAREL</span><strong>服を選ぶ</strong><span class="cat-sub">定番アイテムの選び方・サイズ・手入れ</span></div></a>
-  <a class="cat-banner cat-interior" href="interior.html"><img src="cat-interior.jpg" alt="ソファと木のテーブルがある部屋" loading="lazy" width="800" height="469"><div class="cat-text"><span class="cat-en">INTERIOR</span><strong>部屋を整える</strong><span class="cat-sub">家具・照明・収納・レイアウト</span></div></a>
+  <a class="cat-banner" href="apparel.html"><img src="cat-apparel.jpg" srcset="cat-apparel-sm.jpg 800w, cat-apparel.jpg 1600w" sizes="(max-width:640px) 100vw, 50vw" alt="ハンガーラックに掛かったシャツとジャケット、木の台に畳んだニット・パンツとスニーカー" loading="lazy" width="1600" height="800"><div class="cat-text"><span class="cat-en">APPAREL</span><strong>服を選ぶ</strong><span class="cat-sub"><span>定番アイテムの選び方・</span><span>サイズ・手入れ</span></span></div></a>
+  <a class="cat-banner cat-interior" href="interior.html"><img src="cat-interior.jpg" srcset="cat-interior-sm.jpg 800w, cat-interior.jpg 1600w" sizes="(max-width:640px) 100vw, 50vw" alt="木のアームチェアとフロアランプ、丸いサイドテーブルがある部屋" loading="lazy" width="1600" height="800"><div class="cat-text"><span class="cat-en">INTERIOR</span><strong>部屋を整える</strong><span class="cat-sub"><span>家具・照明・</span><span>収納・レイアウト</span></span></div></a>
 </section>
 
 <section class="block">
@@ -209,7 +209,7 @@ write("index.html", page(SITE, TAGLINE + "。アパレルとインテリアの�
 leads = {"apparel": "毎日着る服の選び方、サイズの合わせ方、長く着るための手入れを紹介します。", "interior": "一人暮らしの部屋を快適に、すっきり見せるための家具・照明・収納・レイアウトを紹介します。"}
 for key in CATS:
     lst = [a for a in arts if a["cat"] == key]
-    body = f"""<section class="cat-head cat-head-{key}"><img src="cat-{key}.jpg" alt="" width="800" height="469"><div class="cat-text"><span class="cat-en">{'APPAREL' if key=='apparel' else 'INTERIOR'}</span><h1>{CATS[key]}</h1><p>{leads[key]}</p></div></section>
+    body = f"""<section class="cat-head cat-head-{key}"><img src="cat-{key}.jpg" srcset="cat-{key}-sm.jpg 800w, cat-{key}.jpg 1600w" sizes="100vw" alt="" width="1600" height="800"><div class="cat-text"><span class="cat-en">{'APPAREL' if key=='apparel' else 'INTERIOR'}</span><h1>{CATS[key]}</h1><p>{leads[key]}</p></div></section>
 <p class="count">{len(lst)}本の記事</p>
 <div class="grid grid-3">{''.join(card(a) for a in lst)}</div>"""
     write(f"{key}.html", page(CATS[key], f"{CATS[key]}の記事一覧", body, key))
